@@ -71,6 +71,36 @@ void deleteAllnodes(){//works
 }
 
 
+void searchcontact(){//searches through the linked list for the name
+    contact *temp = head;
+    string sname;
+    bool found = false;
+    cout<<"enter name for search: ";
+    cin >>sname;
+
+    while (temp != nullptr){
+        if (temp->name == sname){
+            found = true;
+            cout<<"found:"<<endl;
+            cout<<temp->name<<endl;
+            cout<<temp->phone<<endl;
+            cout<<temp->email<<endl;
+
+        }
+
+        contact* next = temp->next;
+        temp = next;
+
+        
+    }
+
+    if (found == false){
+        cout<<"found"<<endl;
+    }
+
+
+}
+
 
 
 int main(){
@@ -83,6 +113,8 @@ int main(){
         cout<<"--- Address Book ---"<<endl;//indicate to user choises.
         cout<<"1. Add Contact"<<endl;
         cout<<"2. List all Contact"<<endl;
+        cout<<"3. Search Contact"<<endl;
+        cout<<"4. Deleting Contacts"<<endl;
         cout<<"0. Exit Address book"<<endl;
         cout<<"Enter your choice: ";
 
@@ -100,6 +132,11 @@ int main(){
             case 2: 
                 seeContacts();
                 break;
+            case 3:
+                searchcontact();
+                break;
+            case 4:
+                cout<<"not yet available"<<endl;
 
         }
     }
