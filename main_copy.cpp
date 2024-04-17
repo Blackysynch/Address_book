@@ -5,7 +5,6 @@ using namespace std;
 
 
 struct contact{
-    int data; //
     string name;
     string phone;
     string email;
@@ -17,30 +16,36 @@ contact *current = nullptr;
 
 //inserting contacts in the address book
 
-void addContact(){
+void addContact(){//this wiil add contact info
+    //using inserting into linked list from the end
     string name, phone, email;
     cout<<"enter name: "<<endl;
     cin>>name;
     cout<<"enter phone: "<<endl;
     cin>>phone;
     cout<<"enter email: "<<endl;
-    cin>>email;
-
-    contact* newContact = new contact;
+    cin>>email; 
+    //creating the new contact
+    contact* newContact = (struct contact*) malloc(sizeof(struct contact));
     newContact->name = name;
     newContact->phone = phone;
     newContact->email = email;
-    newContact->next = nullptr;
+    newContact->next = nullptr;//points to null at the end
+
+    //if our list is empty, change new contact to be the head;
+    if (head == nullptr){
+        head = newContact;
+        current = newContact;
+    } else {// else add to the end of the list
+        current->next = newContact;
+        current = newContact;
+    }
     
-    
-    cout<<newContact->name<<endl;
-    cout<<newContact->phone<<endl;
-    cout<<newContact->email<<endl;
+    //delete newContact;
 }
 
-void search(){
+/*
 
-}
 
 void listContacts(){
     contact *ptr = head;
@@ -54,6 +59,8 @@ void listContacts(){
 
 
 
+*/
+
 int main(){
     
     bool status = true;
@@ -63,8 +70,8 @@ int main(){
     while(status){
         int action;
 
-
-        cout << "\n** Address Book **\n";
+        //user chooses what he wants to do;
+        cout << "\n--- Address Book ---\n";
         cout << "1. Add Contact\n";
         cout << "2. Search Contact\n";
         cout << "3. remove contact \n";
@@ -74,22 +81,19 @@ int main(){
         cin >> action;
         
         
-        switch (action){
-            case 0:
+        switch (action){//decide which action to make
+            case 0:// stop the app
                 cout<<"You choose to stop"<<endl;
-                status = false;
                 break;
-            case 1:
-                //cout<<"not available yet"<<endl;
+            case 1:// add contacts
+                cout<<"not available yet"<<endl;
                 
                 addContact();
+                continue;
+            case 2:// search the contacts
+                //cout<<"not available yet"<<endl;
                 break;
-            case 2:
-                cout<<"not available yet"<<endl;
-
-                search();
-                break;
-
+/*
             case 3:
                 cout<<"enter a name to search"<<endl;
                 break;
@@ -97,22 +101,13 @@ int main(){
                 cout<<"not available yet"<<endl;
                 cout<<"list of contacts:";
 
+                //listContacts();
                 break;
-            case 5:
-                cout<<"not available yet"<<endl;
-                break;
-            case 6:
-                cout<<"not available yet"<<endl;
-                break;
-            
-            /*
-            case 1:
-                cout<<"remember use only lowercase letters with no space"<<endl;
-
-            case 2:
-            */
-            
+                
+*/           
         }
+
+        cout<<"done";
         
     }
 

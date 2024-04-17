@@ -4,11 +4,6 @@
 using namespace std;
 
 
-string contact_list[50] ={};//keeping track of contacts 
-
-struct contact;
-
-
 struct contact{
     string name;
     string phone;
@@ -17,62 +12,98 @@ struct contact{
 };
 
 contact *head = nullptr;
+contact *tail = nullptr;
 
-void addContact(string name, string phone, string email){
-    
+
+void createContact(){//works
+    string name, phone, email;
     cout<<"enter name: "<<endl;
     cin>>name;
     cout<<"enter phone: "<<endl;
     cin>>phone;
     cout<<"enter email: "<<endl;
     cin>>email;
+    
 
-    contact* newContact = new contact;
-    newContact->name = name;
-    newContact->phone = phone;
-    newContact->email = email;
-    newContact->next = nullptr;
-    
-    
-    cout<<newContact->name<<endl;
-    cout<<newContact->phone<<endl;
-    cout<<newContact->email<<endl;
+    cout<<name<<" "<<phone<<" "<<email<<"\n"<<endl;
+
+    contact *temp = new contact;
+    temp->name = name;
+    temp->phone = phone;
+    temp->email = email;
+    temp->next = nullptr;//sets next pointer to null for the last node
+
+    if (head == nullptr){
+        head = temp;//bith head and tail point to new node
+        tail = temp;
+        //temp = NULL;
+    }
+    else
+    {
+        tail->next = temp;  
+        //tail = temp;      
+    }
+
 }
 
-void printList() {
-  Contact* current = head;
-  while (current != nullptr) {
-    cout << current->data << " ";
-    current = current->next;
-  }
-  cout << std::endl;
+void seeContacts(){//works
+    contact *temp;
+    temp = head;
+    while(temp != nullptr){
+        cout<<"printing contact..."<<endl;
+        cout<<temp->name<<endl;
+        cout<<temp->phone<<endl;
+        cout<<temp->email<<endl;
+        temp = temp->next;
+    }
+
+    //delete temp; //unnecessary since the tail becomes unreferenced
 }
+
+
+void deleteAllnodes(){//works
+    contact* current = head;
+    while (current != nullptr) {
+        contact* next = current->next;
+        delete current;
+        current = next;
+    }
+}
+
+
+
 
 int main(){
-    int action;
-    /*
-    contact* newContact = new contact;
-    newContact->data = 40;
-    newContact->next = nullptr;
-    
-    */
-    /*
-    Node* createNode(int data) {
-        Node* newNode = new Node;
-        newNode->data = data;
-        newNode->next = nullptr;
-        return newNode;
-}
-    */
-   cout<<"choose between 1 to 4"<<endl;
-   cin>>action;
 
-   
-   switch (action){
-    case 1:
-        cout<<"adding contact"<<endl;
-        string name, phone, email;
-        addContact(name, phone, email);
-   }
+    int active = true;
+
+    while(active){//maintains the app active
+        int action;
+
+        cout<<"--- Address Book ---"<<endl;//indicate to user choises.
+        cout<<"1. Add Contact"<<endl;
+        cout<<"2. List all Contact"<<endl;
+        cout<<"0. Exit Address book"<<endl;
+        cout<<"Enter your choice: ";
+
+        cin>>action;
+
+        switch (action){
+            case 0:
+                cout<<"You choose to quit\nExiting app"<<endl;
+                deleteAllnodes();
+                return 0;
+            case 1:
+                cout<<"in progress..."<<endl;
+                createContact();
+                break;
+            case 2: 
+                seeContacts();
+                break;
+
+        }
+    }
+
+
     return 0;
 }
