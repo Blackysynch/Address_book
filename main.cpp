@@ -95,7 +95,7 @@ void searchcontact(){//searches through the linked list for the name
     }
 
     if (found == false){
-        cout<<"found"<<endl;
+        cout<<"Not found"<<endl;
     }
 
 
@@ -137,6 +137,10 @@ int main(){
                 break;
             case 4:
                 cout<<"not yet available"<<endl;
+            default:
+                cout<<"ending..."<<endl;
+                deleteAllnodes();
+                return 0;
 
         }
     }
