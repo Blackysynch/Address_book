@@ -5,7 +5,7 @@ using namespace std;
 
 
 struct contact{
-    string name;
+    string name; //details of the contact
     string phone;
     string email;
     contact* next;  //address
@@ -16,6 +16,7 @@ contact *tail = nullptr;
 
 
 void createContact(){//works
+    //takes in user input
     string name, phone, email;
     cout<<"enter name: "<<endl;
     cin>>name;
@@ -27,42 +28,45 @@ void createContact(){//works
 
     cout<<name<<" "<<phone<<" "<<email<<"\n"<<endl;
 
-    contact *temp = new contact;
+    contact *temp = new contact;//create a contact
     temp->name = name;
     temp->phone = phone;
     temp->email = email;
     temp->next = nullptr;//sets next pointer to null for the last node
 
-    if (head == nullptr){
-        head = temp;//bith head and tail point to new node
+    if (head == nullptr){//if list is empty
+        head = temp;//both head and tail point to new node
         tail = temp;
         //temp = NULL;
     }
-    else
+    else //if list has ellements
     {
-        tail->next = temp;  
-        //tail = temp;      
+        tail->next = temp;  //tail point to the new element
+        tail = temp;      
     }
 
 }
 
+//lists all contacts found in the list
 void seeContacts(){//works
     contact *temp;
-    temp = head;
-    while(temp != nullptr){
+    temp = head; // Start from the head of the list
+    while(temp != nullptr){ //loops through contacts until the last contact
         cout<<"printing contact..."<<endl;
         cout<<temp->name<<endl;
         cout<<temp->phone<<endl;
         cout<<temp->email<<endl;
-        temp = temp->next;
+        temp = temp->next; //update pointer to become next
     }
 
     //delete temp; //unnecessary since the tail becomes unreferenced
 }
 
 
-void deleteAllnodes(){//works
-    contact* current = head;
+//deletes every single node from list before termimating
+void deleteAllnodes(){
+    
+    contact* current = head; // Start from the head of the list
     while (current != nullptr) {
         contact* next = current->next;
         delete current;
@@ -72,24 +76,24 @@ void deleteAllnodes(){//works
 
 
 void searchcontact(){//searches through the linked list for the name
-    contact *temp = head;
+    contact *temp = head; //starts from the head
     string sname;
     bool found = false;
     cout<<"enter name for search: ";
     cin >>sname;
 
     while (temp != nullptr){
-        if (temp->name == sname){
+        if (temp->name == sname){ //compare name in contact node to input
             found = true;
-            cout<<"found:"<<endl;
+            cout<<"found:"<<endl;//if true prints data
             cout<<temp->name<<endl;
             cout<<temp->phone<<endl;
             cout<<temp->email<<endl;
-
+            
         }
 
-        contact* next = temp->next;
-        temp = next;
+        contact* next = temp->next; //gets next contact to compare
+        temp = next; //updates current node to next
 
         
     }
@@ -100,6 +104,42 @@ void searchcontact(){//searches through the linked list for the name
 
 
 }
+
+void deleteContact() { // deletes contact
+    string nameToDelete;
+    cout<<"Enter name to be deleted: ";
+    cin>>nameToDelete;
+    if (head == nullptr) {
+        cout << "Contact list is empty." << endl;
+        return;
+    }
+
+    contact* current = head;
+    contact* prev = nullptr;
+
+    // Traverse the list to find the contact to delete
+    while (current != nullptr) {
+        if (current->name == nameToDelete) {
+            if (prev == nullptr) {
+                // If the node to delete is the head node
+                head = current->next;
+            } else {
+                
+                prev->next = current->next;
+            }
+
+            delete current;
+            cout << "Contact deleted successfully." << endl;
+            return;
+        }
+        prev = current;
+        current = current->next;
+    }
+
+    // Contact with the given name not found
+    cout << "Contact named " << nameToDelete << " not found." << endl;
+}
+
 
 
 
@@ -136,7 +176,12 @@ int main(){
                 searchcontact();
                 break;
             case 4:
-                cout<<"not yet available"<<endl;
+                //cout<<"not yet available"<<endl;
+                deleteContact();
+                break;
+            case 5:
+                cout<<"Not yet available";
+                break;
             default:
                 cout<<"ending..."<<endl;
                 deleteAllnodes();
