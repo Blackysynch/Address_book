@@ -183,14 +183,12 @@ int main(){
                 cout<<"Not yet available";
                 break;
             default:
-                cout<<"ending..."<<endl;
+                cout<<"Wrong value ending..."<<endl;
                 deleteAllnodes();
                 return 0;
 
         }
     }
 
-
-    return 0;
 }
 
